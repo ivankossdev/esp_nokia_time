@@ -19,6 +19,7 @@ public class ComPort
         {
             Console.WriteLine("No Ports");
         }
+
     }
 
     public static void Init(string comport)
@@ -26,14 +27,39 @@ public class ComPort
         _serialPort.PortName = comport;
         _serialPort.BaudRate = 115200;
         _serialPort.DataBits = 8;
+
+        _serialPort.ReadTimeout = 500;
+        _serialPort.WriteTimeout = 500;
+
+        List<string> mySettings = [
+            _serialPort.PortName,
+            _serialPort.BaudRate.ToString(),
+            _serialPort.Parity.ToString(),
+            _serialPort.DataBits.ToString(),
+            _serialPort.StopBits.ToString(),
+            _serialPort.Handshake.ToString() ];
+
+        foreach (string s in mySettings)
+        {
+            System.Console.WriteLine(s);
+        }
     }
 
-    public static void OpenPort()
+    public static void Open()
     {
         _serialPort.Open();
     }
 
-    public static void ReadPort()
+    public static void Close()
+    {
+        _serialPort.Close();
+    }
+
+    public static void Write(string message){
+        _serialPort.WriteLine(message);
+    }
+
+    public static void Read()
     {
         _serialPort.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
         Console.WriteLine(_serialPort.ReadLine());
@@ -41,7 +67,6 @@ public class ComPort
 
     private static void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
     {
-        Console.WriteLine(_serialPort.ReadLine());
         _serialPort.DiscardInBuffer();
     }
 }
