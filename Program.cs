@@ -9,13 +9,15 @@ class Program
     {
         ComPort.Search();
         ComPort.Init("/dev/ttyUSB0");
-        ComPort.Open();
-        Thread.Sleep(15000);
-        for(int i = 1; i <=7; i++){
-            ComPort.Write($"setdy{i}");
-            System.Console.WriteLine($"setdy{i}");
-            Thread.Sleep(3000);
-        }
-        ComPort.Close();
+
+        bool isOpen = ComPort.Open();
+        Console.WriteLine($"isOpen {isOpen}");
+        Thread.Sleep(8000);
+
+        string cmd = DS3231.SetDay(WeekDay.Thursday);
+        ComPort.Write(cmd);
+        
+        isOpen = ComPort.Close();
+        Console.WriteLine($"isOpen {isOpen}");
     }
 }

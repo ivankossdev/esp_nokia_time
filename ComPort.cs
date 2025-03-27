@@ -31,28 +31,18 @@ public class ComPort
         _serialPort.ReadTimeout = 500;
         _serialPort.WriteTimeout = 500;
 
-        List<string> mySettings = [
-            _serialPort.PortName,
-            _serialPort.BaudRate.ToString(),
-            _serialPort.Parity.ToString(),
-            _serialPort.DataBits.ToString(),
-            _serialPort.StopBits.ToString(),
-            _serialPort.Handshake.ToString() ];
-
-        foreach (string s in mySettings)
-        {
-            System.Console.WriteLine(s);
-        }
     }
 
-    public static void Open()
+    public static bool Open()
     {
         _serialPort.Open();
+        return _serialPort.IsOpen;
     }
 
-    public static void Close()
+    public static bool Close()
     {
         _serialPort.Close();
+        return _serialPort.IsOpen;
     }
 
     public static void Write(string message){
