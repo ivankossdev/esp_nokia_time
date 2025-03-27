@@ -10,7 +10,13 @@ public enum WeekDay{
     Sunday = 7
 }
 
+public struct MyTime{
+    public string time;
+    public string date;
+};
+
 public class DS3231{
+    
     public static string SetDay(WeekDay weekDay){
 
         string day = string.Empty; 
@@ -24,5 +30,13 @@ public class DS3231{
             case WeekDay.Sunday: day = "setdy7"; break;
         }
         return day;
+    }
+
+    public static MyTime GetDateTime(){
+        MyTime tm = new();
+        string data = DateTime.Now.ToString("s");
+        tm.time = data.Split('T')[1];
+        tm.date = data.Split('T')[0];
+        return tm;
     }
 }
