@@ -1,23 +1,9 @@
 namespace esp_nokia_time;
 
-public enum WeekDay{
-    Monday = 1, 
-    Tuesday = 2,
-    Wednesday = 3,
-    Thursday = 4,
-    Friday = 5, 
-    Saturday = 6,
-    Sunday = 7
-}
-
-public struct MyTime{
-    public string time;
-    public string date;
-};
-
-public class DS3231{
-    
-    public static string SetDay(WeekDay weekDay){
+public class Control{
+    private readonly string comPort;
+    private MyTime mt = GetDateTime();
+    private static string GetCmdDay(WeekDay weekDay){
 
         string day = string.Empty; 
         switch (weekDay){
@@ -31,12 +17,26 @@ public class DS3231{
         }
         return day;
     }
-
-    public static MyTime GetDateTime(){
+    private static MyTime GetDateTime(){
         MyTime tm = new();
         string data = DateTime.Now.ToString("s");
         tm.time = data.Split('T')[1];
         tm.date = data.Split('T')[0];
         return tm;
+    }
+    public Control(string comPort_){
+        this.comPort = comPort_;
+        ComPort.Init(comPort);
+        Console.WriteLine("Init port /dev/ttyUSB0");
+    }
+    public void SetDate(){
+        Console.WriteLine($"date {mt.date}");
+    }
+    public void SetTime(){
+        Console.WriteLine($"date {mt.time}");
+    }
+
+    public void SetDay(WeekDay weekDay){
+        Console.WriteLine($"Day {GetCmdDay(weekDay)}");
     }
 }

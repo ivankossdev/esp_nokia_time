@@ -7,8 +7,10 @@ class Program
 {
     static void Main(string[] args)
     {
-        MyTime mt = DS3231.GetDateTime();
-        System.Console.WriteLine($"time {mt.time}\ndate {mt.date}");
+        Control cntr = new("/dev/ttyUSB0");
+        cntr.SetTime();
+        cntr.SetDate();
+        cntr.SetDay(WeekDay.Sunday);
         // ComPort.Search();
         // ComPort.Init("/dev/ttyUSB0");
 
