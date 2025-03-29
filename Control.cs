@@ -3,17 +3,17 @@ namespace esp_nokia_time;
 public class Control{
     private readonly string comPort;
     private MyTime mt = GetDateTime();
-    private static string GetCmdDay(WeekDay weekDay){
+    private static string GetCmdDay(string weekDay){
 
         string day = string.Empty; 
         switch (weekDay){
-            case WeekDay.Monday: day = "setdy1"; break; 
-            case WeekDay.Tuesday: day = "setdy2"; break;
-            case WeekDay.Wednesday: day = "setdy3"; break;
-            case WeekDay.Thursday: day = "setdy4"; break;
-            case WeekDay.Friday: day = "setdy5"; break;
-            case WeekDay.Saturday: day = "setdy6"; break;
-            case WeekDay.Sunday: day = "setdy7"; break;
+            case "Monday": day = "setdy1"; break; 
+            case "Tuesday": day = "setdy2"; break;
+            case "Wednesday": day = "setdy3"; break;
+            case "Thursday": day = "setdy4"; break;
+            case "Friday": day = "setdy5"; break;
+            case "Saturday": day = "setdy6"; break;
+            case "Sunday": day = "setdy7"; break;
         }
         return day;
     }
@@ -36,7 +36,8 @@ public class Control{
         Console.WriteLine($"date {mt.time}");
     }
 
-    public void SetDay(WeekDay weekDay){
-        Console.WriteLine($"Day {GetCmdDay(weekDay)}");
+    public void SetDay(){
+        DateOnly now = DateOnly.Parse(mt.date);
+        Console.WriteLine(GetCmdDay(now.DayOfWeek.ToString()));
     }
 }

@@ -10,7 +10,7 @@ class Program
         Control cntr = new("/dev/ttyUSB0");
         cntr.SetTime();
         cntr.SetDate();
-        cntr.SetDay(WeekDay.Sunday);
+        cntr.SetDay();
         // ComPort.Search();
         // ComPort.Init("/dev/ttyUSB0");
 
