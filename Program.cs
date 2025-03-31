@@ -10,7 +10,7 @@ class Program
         Commands cmd = new();
         Console.WriteLine(cmd.SetDate());
         Console.WriteLine(cmd.SetDay());
-         Console.WriteLine(cmd.SetMonth());
+        Console.WriteLine(cmd.SetMonth());
         // ComPort.Search();
         // ComPort.Init("/dev/ttyUSB0");
 

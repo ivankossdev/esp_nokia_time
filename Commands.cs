@@ -25,8 +25,10 @@ public class Commands{
         string data = DateTime.Now.ToString("s");
         tm.time = data.Split('T')[1];
         tm.fullDate = data.Split('T')[0];
-        tm.date = tm.fullDate.Split('-')[2];
-        tm.month = tm.fullDate.Split('-')[1];
+        
+        string[] fullDate = tm.fullDate.Split('-');  
+        tm.date = fullDate[2];
+        tm.month = fullDate[1];
         return tm;
     }
 
