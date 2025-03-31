@@ -8,7 +8,8 @@ class Program
     static void Main(string[] args)
     {
         Commands cmd = new();
-        System.Console.WriteLine(cmd.SetDate());
+        Console.WriteLine(cmd.SetDate());
+        Console.WriteLine(cmd.SetDay());
         // ComPort.Search();
         // ComPort.Init("/dev/ttyUSB0");
 
