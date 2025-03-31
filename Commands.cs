@@ -1,7 +1,6 @@
 namespace esp_nokia_time;
 
-public class Control{
-    private readonly string comPort;
+public class Commands{
     private MyTime mt = GetDateTime();
     private static string GetCmdDay(string weekDay){
 
@@ -24,20 +23,15 @@ public class Control{
         tm.date = data.Split('T')[0];
         return tm;
     }
-    public Control(string comPort_){
-        this.comPort = comPort_;
-        ComPort.Init(comPort);
-        Console.WriteLine("Init port /dev/ttyUSB0");
+    public string SetDate(){
+        return $"date {mt.date}";
     }
-    public void SetDate(){
-        Console.WriteLine($"date {mt.date}");
-    }
-    public void SetTime(){
-        Console.WriteLine($"date {mt.time}");
+    public string SetTime(){
+        return $"settm{mt.time.Replace(":", "")}"; 
     }
 
-    public void SetDay(){
+    public string SetDay(){
         DateOnly now = DateOnly.Parse(mt.date);
-        Console.WriteLine(GetCmdDay(now.DayOfWeek.ToString()));
+        return GetCmdDay(now.DayOfWeek.ToString());
     }
 }
