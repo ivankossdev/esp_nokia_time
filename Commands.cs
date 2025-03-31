@@ -21,11 +21,12 @@ public class Commands{
     }
 
     private static MyDateTime GetDateTime(){
-        MyDateTime tm = new();
+        MyDateTime tm = new(); 
         string data = DateTime.Now.ToString("s");
         tm.time = data.Split('T')[1];
         tm.fullDate = data.Split('T')[0];
         tm.date = tm.fullDate.Split('-')[2];
+        tm.month = tm.fullDate.Split('-')[1];
         return tm;
     }
 
@@ -40,5 +41,9 @@ public class Commands{
 
     public string SetDate(){
         return $"setdt{mdt.date}"; 
+    }
+
+    public string SetMonth(){
+        return $"setmn{mdt.month}";
     }
 }
