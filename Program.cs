@@ -8,15 +8,16 @@ class Program
     static void Main(string[] args)
     {
         Commands cmd = new();
-        ComPort.Search();
-        ComPort.Init("/dev/ttyUSB0");
+        System.Console.WriteLine(cmd.SetDate());
+        // ComPort.Search();
+        // ComPort.Init("/dev/ttyUSB0");
 
-        bool isOpen = ComPort.Open();
-        Console.WriteLine($"isOpen {isOpen}");
-        Thread.Sleep(8000);
-        ComPort.Write(cmd.SetDay());
+        // bool isOpen = ComPort.Open();
+        // Console.WriteLine($"isOpen {isOpen}");
+        // Thread.Sleep(8000);
+        // ComPort.Write(cmd.SetDay());
         
-        isOpen = ComPort.Close();
-        Console.WriteLine($"isOpen {isOpen}");
+        // isOpen = ComPort.Close();
+        // Console.WriteLine($"isOpen {isOpen}");
     }
 }

@@ -1,7 +1,11 @@
 namespace esp_nokia_time;
 
 public class Commands{
-    private MyTime mt = GetDateTime();
+    private MyTime mt;
+    private MyDate md; 
+    public Commands(){
+        mt = GetDateTime();
+    }
     private static string GetCmdDay(string weekDay){
 
         string day = string.Empty; 
@@ -23,9 +27,6 @@ public class Commands{
         tm.date = data.Split('T')[0];
         return tm;
     }
-    public string SetDate(){
-        return $"date {mt.date}";
-    }
     public string SetTime(){
         return $"settm{mt.time.Replace(":", "")}"; 
     }
@@ -33,5 +34,14 @@ public class Commands{
     public string SetDay(){
         DateOnly now = DateOnly.Parse(mt.date);
         return GetCmdDay(now.DayOfWeek.ToString());
+    }
+
+    private void GetDate(){
+        md.date = mt.date.Split('-')[2];;
+    }
+
+    public string SetDate(){
+        GetDate();
+        return $"setdt{md.date}"; 
     }
 }
