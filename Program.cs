@@ -11,6 +11,7 @@ class Program
         Console.WriteLine(cmd.SetDate());
         Console.WriteLine(cmd.SetDay());
         Console.WriteLine(cmd.SetMonth());
+        Console.WriteLine(cmd.SetYear());
         // ComPort.Search();
         // ComPort.Init("/dev/ttyUSB0");
 

@@ -23,7 +23,7 @@ public class Commands{
     private static MyDateTime GetDateTime(){
         MyDateTime tm = new(); 
         string dateTime = DateTime.Now.ToString("s");
-        
+
         string[] data = dateTime.Split('T');
         tm.time = data[1];
         tm.fullDate = data[0];
@@ -31,6 +31,7 @@ public class Commands{
         string[] fullDate = tm.fullDate.Split('-');  
         tm.date = fullDate[2];
         tm.month = fullDate[1];
+        tm.year = fullDate[0];
         return tm;
     }
 
@@ -49,5 +50,9 @@ public class Commands{
 
     public string SetMonth(){
         return $"setmn{mdt.month}";
+    }
+
+    public string SetYear(){
+        return $"setyr{mdt.year[2..]}";
     }
 }
