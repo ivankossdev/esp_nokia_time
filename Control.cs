@@ -20,6 +20,7 @@ class Control : ComPort
         ConsoleKeyInfo numPort; 
 
         do{
+            Console.WriteLine(Message.exit);
             Console.WriteLine(Message.enterNumPort);
             numPort = Console.ReadKey();
 
