@@ -13,27 +13,32 @@ class Control : ComPort
         {
             for (int i = 0; i < ports.Length; i++)
             {
-                Console.WriteLine($"[ {i} ] [ {ports[i]} ]");
+                Console.WriteLine($"[ {i} ] {ports[i]}");
             }
         }
 
-        Console.WriteLine(Message.enterNumPort);
-        ConsoleKeyInfo numPort = Console.ReadKey();
-        int num = Convert.ToInt32(numPort.KeyChar) & 0x0f;
-        if (num <= ports.Length - 1)
-        {
-            Console.WriteLine($"[ {num} ] [ {ports[num]} ]");
-            Init(ports[num]);
-            bool isOpen = Open();
-            Console.WriteLine($"isOpen {isOpen}");
-            SynchroTime();
-            isOpen = Close();
-            Console.WriteLine($"isOpen {isOpen}");
-        }
-        else
-        {
-            Console.WriteLine(Message.errorNumPort);
-        }
+        ConsoleKeyInfo numPort; 
+
+        do{
+            Console.WriteLine(Message.enterNumPort);
+            numPort = Console.ReadKey();
+
+            int num = Convert.ToInt32(numPort.KeyChar) & 0x0f;
+            if (num <= ports.Length - 1)
+            {
+                Console.WriteLine($"[ {num} ] {ports[num]}");
+                Init(ports[num]);
+                bool isOpen = Open();
+                Console.WriteLine($"isOpen {isOpen}");
+                SynchroTime();
+                isOpen = Close();
+                Console.WriteLine($"isOpen {isOpen}");
+            }
+            else if(numPort.Key != ConsoleKey.Escape)
+            {
+                Console.WriteLine(Message.errorNumPort);
+            }
+        }while(numPort.Key != ConsoleKey.Escape);
     }
 
     public static void SynchroTime()
