@@ -22,9 +22,11 @@ public class Commands{
 
     private static MyDateTime GetDateTime(){
         MyDateTime tm = new(); 
-        string data = DateTime.Now.ToString("s");
-        tm.time = data.Split('T')[1];
-        tm.fullDate = data.Split('T')[0];
+        string dateTime = DateTime.Now.ToString("s");
+        
+        string[] data = dateTime.Split('T');
+        tm.time = data[1];
+        tm.fullDate = data[0];
         
         string[] fullDate = tm.fullDate.Split('-');  
         tm.date = fullDate[2];
