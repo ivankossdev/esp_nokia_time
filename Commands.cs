@@ -1,10 +1,7 @@
 namespace esp_nokia_time;
 
-public class Commands{
-    private MyDateTime mdt;
-    public Commands(){
-        mdt = GetDateTime();
-    }
+public static class Commands{
+    static MyDateTime tm = new();
     private static string GetCmdDay(string weekDay){
 
         string day = string.Empty; 
@@ -20,8 +17,8 @@ public class Commands{
         return day;
     }
 
-    private static MyDateTime GetDateTime(){
-        MyDateTime tm = new(); 
+    public static MyDateTime GetDateTime(){
+         
         string dateTime = DateTime.Now.ToString("s");
 
         string[] data = dateTime.Split('T');
@@ -35,24 +32,24 @@ public class Commands{
         return tm;
     }
 
-    public string SetTime(){
-        return $"settm{mdt.time.Replace(":", "")}"; 
+    public static string SetTime(){
+        return $"settm{tm.time.Replace(":", "")}"; 
     }
 
-    public string SetDay(){
-        DateOnly now = DateOnly.Parse(mdt.fullDate);
+    public static string SetDay(){
+        DateOnly now = DateOnly.Parse(tm.fullDate);
         return GetCmdDay(now.DayOfWeek.ToString());
     }
 
-    public string SetDate(){
-        return $"setdt{mdt.date}"; 
+    public static string SetDate(){
+        return $"setdt{tm.date}"; 
     }
 
-    public string SetMonth(){
-        return $"setmn{mdt.month}";
+    public static string SetMonth(){
+        return $"setmn{tm.month}";
     }
 
-    public string SetYear(){
-        return $"setyr{mdt.year[2..]}";
+    public static string SetYear(){
+        return $"setyr{tm.year[2..]}";
     }
 }

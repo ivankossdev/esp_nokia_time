@@ -17,7 +17,6 @@ public class ComPort
 
     protected static bool Open()
     {   
-
         _serialPort.Open();
         return _serialPort.IsOpen;
     }

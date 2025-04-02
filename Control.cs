@@ -3,7 +3,7 @@ namespace esp_nokia_time;
 
 class Control : ComPort
 {
-    
+    static MyDateTime dtm; 
     public static void Prog()
     {
         Console.WriteLine(Message.searchedDevice);
@@ -17,29 +17,59 @@ class Control : ComPort
             }
         }
         PortChoice(ports);
+        Open();
+        Thread.Sleep(5000);
+        SetParams();
+        Close();
     }
 
-    private static void PortChoice(string[] ports){
-        ConsoleKeyInfo numPort;
+    private static void PortChoice(string[] ports)
+    {
+        ConsoleKeyInfo pressKey;
         do
         {
             Console.WriteLine(Message.exit);
             Console.WriteLine(Message.enterNumPort);
-            numPort = Console.ReadKey();
+            pressKey = Console.ReadKey();
 
-            int num = Convert.ToInt32(numPort.KeyChar) & 0x0f;
-            
+            int num = Convert.ToInt32(pressKey.KeyChar) & 0x0f;
+
             if (num <= ports.Length - 1)
             {
                 Console.WriteLine($"[ {num} ] {ports[num]}");
                 Init(ports[num]);
                 break;
             }
-            else if (numPort.Key != ConsoleKey.Escape)
+            else if (pressKey.Key != ConsoleKey.Escape)
             {
                 Console.WriteLine(Message.errorNumPort);
             }
-        } while (numPort.Key != ConsoleKey.Escape);
+        } while (pressKey.Key != ConsoleKey.Escape);
     }
 
+    private static void SetParams()
+    {
+        ConsoleKeyInfo pressKey;
+        Console.WriteLine(Message.pointsMenu); 
+        bool exit = true; 
+        do
+        {
+            dtm = Commands.GetDateTime(); 
+            pressKey = Console.ReadKey();
+            int point = Convert.ToInt32(pressKey.KeyChar) & 0x0f;
+
+            switch (point)
+            {
+                case 1: Console.Clear(); Write(Commands.SetTime()); break;
+                case 2: Console.Clear(); Write(Commands.SetDate()); break;
+                case 3: Console.Clear(); Write(Commands.SetDay()); break;
+                case 4: Console.Clear(); Write(Commands.SetMonth()); break;
+                case 5: Console.Clear(); Write(Commands.SetYear()); break;
+
+                default: exit = false; break; 
+            }
+            Console.WriteLine(Message.pointsMenu); 
+        } while (pressKey.Key != ConsoleKey.Escape && exit);
+        Console.Clear();
+    }
 }
