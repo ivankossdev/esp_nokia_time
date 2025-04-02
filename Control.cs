@@ -16,15 +16,17 @@ class Control : ComPort
                 Console.WriteLine($"[ {i} ] {ports[i]}");
             }
         }
-        PortChoice(ports);
-        Open();
-        SetParams();
-        Close();
+        if (PortChoice(ports)){
+            Open();
+            SetParams();
+            Close();
+        }
     }
 
-    private static void PortChoice(string[] ports)
+    private static bool PortChoice(string[] ports)
     {
         ConsoleKeyInfo pressKey;
+        bool state = false; 
         do
         {
             Console.WriteLine(Message.exit);
@@ -37,13 +39,16 @@ class Control : ComPort
             {
                 Console.WriteLine($"[ {num} ] {ports[num]}");
                 Init(ports[num]);
-                break;
+
+                state = true;
             }
             else if (pressKey.Key != ConsoleKey.Escape)
             {
                 Console.WriteLine(Message.errorNumPort);
             }
         } while (pressKey.Key != ConsoleKey.Escape);
+
+        return state; 
     }
 
     private static void SetParams()
