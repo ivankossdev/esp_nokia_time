@@ -4,6 +4,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        Control.Programm();
+        Control.Prog();
     }
 }

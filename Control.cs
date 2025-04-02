@@ -3,8 +3,8 @@ namespace esp_nokia_time;
 
 class Control : ComPort
 {
-
-    public static void Programm()
+    
+    public static void Prog()
     {
         Console.WriteLine(Message.searchedDevice);
 
@@ -16,51 +16,30 @@ class Control : ComPort
                 Console.WriteLine($"[ {i} ] {ports[i]}");
             }
         }
+        PortChoice(ports);
+    }
 
-        ConsoleKeyInfo numPort; 
-
-        do{
+    private static void PortChoice(string[] ports){
+        ConsoleKeyInfo numPort;
+        do
+        {
             Console.WriteLine(Message.exit);
             Console.WriteLine(Message.enterNumPort);
             numPort = Console.ReadKey();
 
             int num = Convert.ToInt32(numPort.KeyChar) & 0x0f;
+            
             if (num <= ports.Length - 1)
             {
                 Console.WriteLine($"[ {num} ] {ports[num]}");
                 Init(ports[num]);
-                bool isOpen = Open();
-                Console.WriteLine($"isOpen {isOpen}");
-                SynchroTime();
-                isOpen = Close();
-                Console.WriteLine($"isOpen {isOpen}");
+                break;
             }
-            else if(numPort.Key != ConsoleKey.Escape)
+            else if (numPort.Key != ConsoleKey.Escape)
             {
                 Console.WriteLine(Message.errorNumPort);
             }
-        }while(numPort.Key != ConsoleKey.Escape);
+        } while (numPort.Key != ConsoleKey.Escape);
     }
 
-    public static void SynchroTime()
-    {
-        Thread.Sleep(10000);
-
-        Commands cmd = new();
-
-        Write(cmd.SetDate());
-        Thread.Sleep(2000);
-
-        Write(cmd.SetMonth());
-        Thread.Sleep(2000);
-
-        Write(cmd.SetYear());
-        Thread.Sleep(2000);
-
-        Write(cmd.SetDay());
-        Thread.Sleep(2000);
-
-        Write(cmd.SetTime());
-        Thread.Sleep(2000);
-    }
 }
