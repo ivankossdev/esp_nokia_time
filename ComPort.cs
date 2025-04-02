@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO.Ports;
 namespace esp_nokia_time;
 
@@ -9,6 +10,7 @@ public class ComPort
         _serialPort.PortName = comport;
         _serialPort.BaudRate = 115200;
         _serialPort.DataBits = 8;
+        _serialPort.DtrEnable = true;
 
         _serialPort.ReadTimeout = 500;
         _serialPort.WriteTimeout = 500;

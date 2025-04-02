@@ -18,7 +18,6 @@ class Control : ComPort
         }
         PortChoice(ports);
         Open();
-        Thread.Sleep(5000);
         SetParams();
         Close();
     }
