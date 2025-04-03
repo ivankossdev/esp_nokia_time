@@ -70,7 +70,7 @@ class Control : ComPort
             dtm = Commands.GetDateTime();
             pressKey = Console.ReadKey();
             int point = Convert.ToInt32(pressKey.KeyChar) & 0x0f;
-            bool defoult_ = false;
+            bool default_ = false;
 
             switch (point)
             {
@@ -80,9 +80,9 @@ class Control : ComPort
                 case 4: Console.Clear(); Write(Commands.SetMonth()); break;
                 case 5: Console.Clear(); Write(Commands.SetYear()); break;
 
-                default: defoult_ = true; break;
+                default: default_ = true; break;
             }
-            if (!defoult_)
+            if (!default_)
             {
                 Console.WriteLine($"Параметр [ {point} ] синхронизирован.\n\n");
                 Console.WriteLine(Message.pointsMenu);
