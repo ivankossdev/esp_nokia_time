@@ -17,9 +17,15 @@ class Control : ComPort
             }
         }
         if (PortChoice(ports)){
-            Open();
-            SetParams();
-            Close();
+            try{
+
+                Open();
+                SetParams();
+                Close();
+            }
+            catch(Exception e){
+                Console.WriteLine($"Порт занят другой программой\n{e}");
+            }
         }
     }
 
@@ -73,7 +79,9 @@ class Control : ComPort
 
                 default: exit = false; break; 
             }
+            Console.WriteLine($"[ {point} ] ready.\n\n"); 
             Console.WriteLine(Message.pointsMenu); 
+            Console.WriteLine(Message.exit); 
         } while (pressKey.Key != ConsoleKey.Escape && exit);
         Console.Clear();
     }
