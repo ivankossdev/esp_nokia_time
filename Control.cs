@@ -3,7 +3,7 @@ namespace esp_nokia_time;
 
 class Control : ComPort
 {
-    static MyDateTime dtm; 
+    static MyDateTime dtm;
     public static void Prog()
     {
         Console.WriteLine(Message.searchedDevice);
@@ -16,14 +16,17 @@ class Control : ComPort
                 Console.WriteLine($"[ {i} ] {ports[i]}");
             }
         }
-        if (PortChoice(ports)){
-            try{
+        if (PortChoice(ports))
+        {
+            try
+            {
 
                 Open();
                 SetParams();
                 Close();
             }
-            catch(Exception e){
+            catch (Exception e)
+            {
                 Console.WriteLine($"Порт занят другой программой\n{e}");
             }
         }
@@ -32,7 +35,7 @@ class Control : ComPort
     private static bool PortChoice(string[] ports)
     {
         ConsoleKeyInfo pressKey;
-        bool state = false; 
+        bool state = false;
         do
         {
             Console.WriteLine(Message.exit);
@@ -47,7 +50,7 @@ class Control : ComPort
                 Init(ports[num]);
 
                 state = true;
-                break; 
+                break;
             }
             else if (pressKey.Key != ConsoleKey.Escape)
             {
@@ -55,19 +58,19 @@ class Control : ComPort
             }
         } while (pressKey.Key != ConsoleKey.Escape);
 
-        return state; 
+        return state;
     }
 
     private static void SetParams()
     {
         ConsoleKeyInfo pressKey;
-        Console.WriteLine(Message.pointsMenu); 
-        bool exit = true; 
+        Console.WriteLine(Message.pointsMenu);
         do
         {
-            dtm = Commands.GetDateTime(); 
+            dtm = Commands.GetDateTime();
             pressKey = Console.ReadKey();
             int point = Convert.ToInt32(pressKey.KeyChar) & 0x0f;
+            bool defoult_ = false;
 
             switch (point)
             {
@@ -77,12 +80,19 @@ class Control : ComPort
                 case 4: Console.Clear(); Write(Commands.SetMonth()); break;
                 case 5: Console.Clear(); Write(Commands.SetYear()); break;
 
-                default: exit = false; break; 
+                default: defoult_ = true; break;
             }
-            Console.WriteLine($"[ {point} ] ready.\n\n"); 
-            Console.WriteLine(Message.pointsMenu); 
-            Console.WriteLine(Message.exit); 
-        } while (pressKey.Key != ConsoleKey.Escape && exit);
+            if (!defoult_)
+            {
+                Console.WriteLine($"Параметр [ {point} ] синхронизирован.\n\n");
+                Console.WriteLine(Message.pointsMenu);
+                Console.WriteLine(Message.exit);
+            }
+            else
+            {
+                Console.WriteLine(Message.pointsMenu);Console.WriteLine(Message.pointsMenu);
+            }
+        } while (pressKey.Key != ConsoleKey.Escape);
         Console.Clear();
     }
 }
