@@ -41,6 +41,7 @@ class Control : ComPort
                 Init(ports[num]);
 
                 state = true;
+                break; 
             }
             else if (pressKey.Key != ConsoleKey.Escape)
             {
