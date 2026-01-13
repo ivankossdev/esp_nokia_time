@@ -5,10 +5,10 @@ namespace esp_nokia_time;
 public class ComPort
 {
     protected static SerialPort _serialPort = new();
-    protected static void Init(string comport)
+    protected static void Init(string comport, int baudRate)
     {
         _serialPort.PortName = comport;
-        _serialPort.BaudRate = 115200;
+        _serialPort.BaudRate = baudRate;
         _serialPort.DataBits = 8;
         _serialPort.DtrEnable = true;
 
