@@ -82,14 +82,15 @@ class Control : ComPort
         Console.WriteLine(Message.pointsMenu);
         do
         {
-            dtm = Commands.GetDateTime();
+            dtm = Commands.GetSystemDateTime();
             pressKey = Console.ReadKey();
             int point = Convert.ToInt32(pressKey.KeyChar) & 0x0f;
             bool default_ = false;
 
             switch (point)
             {
-                case 1: Console.Clear(); Write(Commands.SetTime()); break;
+                case 1: Console.Clear(); Write(Commands.GetSystemTime()); break;
+                case 2: Console.Clear(); Write(Commands.GetSystemDate()); break; 
 
                 default: default_ = true; break;
             }

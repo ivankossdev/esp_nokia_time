@@ -17,30 +17,49 @@ public class ComPort
 
     }
 
+    /// <summary>
+    /// Открывает порт для чтения или записи данных
+    /// </summary>
+    /// <returns></returns>
     protected static bool Open()
     {   
         _serialPort.Open();
         return _serialPort.IsOpen;
     }
 
+    /// <summary>
+    /// Закрывает порт 
+    /// </summary>
+    /// <returns></returns>
     protected static bool Close()
     {
         _serialPort.Close();
         return _serialPort.IsOpen;
     }
 
+    /// <summary>
+    /// Закрывает порт 
+    /// </summary>
+    /// <param name="message"></param>
     protected static void Write(string message){
-        Console.WriteLine(message);
         _serialPort.WriteLine(message);
     }
 
+    /// <summary>
+    /// Читает данные порота 
+    /// </summary>
     protected static void Read()
     {
-        _serialPort.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
+        _serialPort.DataReceived += new SerialDataReceivedEventHandler(Port_DataReceived);
         Console.WriteLine(_serialPort.ReadLine());
     }
 
-    private static void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
+    /// <summary>
+    /// Буфер данных для чтения порта
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private static void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)
     {
         _serialPort.DiscardInBuffer();
     }
