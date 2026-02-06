@@ -20,7 +20,8 @@ public class ComPort
 
         _serialPort.ReadTimeout = 500;
         _serialPort.WriteTimeout = 500;
-
+        _serialPort.Handshake = Handshake.None;
+        _serialPort.DataReceived += SerialPortDataReceived;
     }
 
     /// <summary>
@@ -62,5 +63,17 @@ public class ComPort
             Console.WriteLine(message);
         }
         catch (TimeoutException) { }
+    }
+
+    /// <summary>
+    /// Выводит данные по событию SerialDataReceivedEventArgs
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected static void SerialPortDataReceived(object sender, SerialDataReceivedEventArgs e)
+    {
+        SerialPort port = (SerialPort)sender;
+        string data = port.ReadExisting();
+        Console.WriteLine($"Получено: {data}");
     }
 }
