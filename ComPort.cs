@@ -5,6 +5,12 @@ namespace esp_nokia_time;
 public class ComPort
 {
     protected static SerialPort _serialPort = new();
+
+    /// <summary>
+    /// Инициализаци порта, настройки подключения
+    /// </summary>
+    /// <param name="comport"></param>
+    /// <param name="baudRate"></param>
     protected static void Init(string comport, int baudRate)
     {
         _serialPort.PortName = comport;
@@ -45,6 +51,9 @@ public class ComPort
         _serialPort.WriteLine(message);
     }
 
+    /// <summary>
+    /// Читает строку из com порта
+    /// </summary>
     protected static void ReadLine()
     {
         try

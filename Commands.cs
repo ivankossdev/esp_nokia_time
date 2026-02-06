@@ -1,8 +1,18 @@
 namespace esp_nokia_time;
 
+/// <summary>
+/// Класс для формирования команд управления часами
+/// </summary>
 public static class Commands{
     static MyDateTime tm = new();
-    private static string GetCmdDay(string weekDay){
+
+    /// <summary>
+    /// Преобразует день недели в команду
+    /// для настройки дня недели в часах
+    /// </summary>
+    /// <param name="weekDay"></param>
+    /// <returns></returns>
+    private static string SetCmdDay(string weekDay){
 
         string day = string.Empty; 
         switch (weekDay){
@@ -17,6 +27,10 @@ public static class Commands{
         return day;
     }
 
+    /// <summary>
+    /// Получает системое время, год, месяц 
+    /// </summary>
+    /// <returns></returns>
     public static MyDateTime GetSystemDateTime(){
          
         string dateTime = DateTime.Now.ToString("s");
@@ -32,10 +46,20 @@ public static class Commands{
         return tm;
     }
 
+    /// <summary>
+    /// Преобразует системное время в команду 
+    /// для установки времени в часах
+    /// </summary>
+    /// <returns></returns>
     public static string GetSystemTime(){
         return $"set{tm.time.Replace(":", "")}1"; 
     }
 
+    /// <summary>
+    /// Преобразует год, месяц, число в команду для
+    /// установки даты в часах
+    /// </summary>
+    /// <returns></returns>
     public static string GetSystemDate()
     {
         return $"set{tm.year[2..]}{tm.month}{tm.date}2"; 

@@ -9,7 +9,7 @@ class Control : ComPort
     static MyDateTime dtm;
 
     /// <summary>
-    /// Основная программа установки времения часам 
+    /// Основная программа установки времени 
     /// </summary>
     public static void Prog()
     {
