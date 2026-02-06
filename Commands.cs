@@ -33,23 +33,6 @@ public static class Commands{
     }
 
     public static string SetTime(){
-        return $"settm{tm.time.Replace(":", "")}"; 
-    }
-
-    public static string SetDay(){
-        DateOnly now = DateOnly.Parse(tm.fullDate);
-        return GetCmdDay(now.DayOfWeek.ToString());
-    }
-
-    public static string SetDate(){
-        return $"setdt{tm.date}"; 
-    }
-
-    public static string SetMonth(){
-        return $"setmn{tm.month}";
-    }
-
-    public static string SetYear(){
-        return $"setyr{tm.year[2..]}";
+        return $"set{tm.time.Replace(":", "")}1"; 
     }
 }

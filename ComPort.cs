@@ -30,6 +30,7 @@ public class ComPort
     }
 
     protected static void Write(string message){
+        Console.WriteLine(message);
         _serialPort.WriteLine(message);
     }
 
