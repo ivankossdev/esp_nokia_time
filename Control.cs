@@ -1,9 +1,16 @@
 using System.IO.Ports;
 namespace esp_nokia_time;
 
+/// <summary>
+/// Класс управления com портом
+/// </summary>
 class Control : ComPort
 {
     static MyDateTime dtm;
+
+    /// <summary>
+    /// Основная программа установки времения часам 
+    /// </summary>
     public static void Prog()
     {
         Console.WriteLine(Message.searchedDevice);
@@ -32,6 +39,11 @@ class Control : ComPort
         }
     }
 
+    /// <summary>
+    /// Выбирает найденный порт
+    /// </summary>
+    /// <param name="ports"></param>
+    /// <returns></returns>
     private static bool PortChoice(string[] ports)
     {
         ConsoleKeyInfo pressKey;
@@ -47,7 +59,7 @@ class Control : ComPort
             if (num <= ports.Length - 1)
             {
                 Console.WriteLine($"[ {num} ] {ports[num]}");
-                Init(ports[num]);
+                Init(ports[num], 9600);
 
                 state = true;
                 break;
@@ -61,24 +73,24 @@ class Control : ComPort
         return state;
     }
 
+    /// <summary>
+    /// Отправляет данные для установки времени
+    /// </summary>
     private static void SetParams()
     {
         ConsoleKeyInfo pressKey;
         Console.WriteLine(Message.pointsMenu);
         do
         {
-            dtm = Commands.GetDateTime();
+            dtm = Commands.GetSystemDateTime();
             pressKey = Console.ReadKey();
             int point = Convert.ToInt32(pressKey.KeyChar) & 0x0f;
             bool default_ = false;
 
             switch (point)
             {
-                case 1: Console.Clear(); Write(Commands.SetTime()); break;
-                case 2: Console.Clear(); Write(Commands.SetDate()); break;
-                case 3: Console.Clear(); Write(Commands.SetDay()); break;
-                case 4: Console.Clear(); Write(Commands.SetMonth()); break;
-                case 5: Console.Clear(); Write(Commands.SetYear()); break;
+                case 1: Console.Clear(); Write(Commands.GetSystemTime()); break;
+                case 2: Console.Clear(); Write(Commands.GetSystemDate()); break; 
 
                 default: default_ = true; break;
             }
