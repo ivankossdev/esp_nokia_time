@@ -84,25 +84,23 @@ class Control : ComPort
         {
             dtm = Commands.GetSystemDateTime();
             pressKey = Console.ReadKey();
-            int point = Convert.ToInt32(pressKey.KeyChar) & 0x0f;
+            int point = Convert.ToInt32(pressKey.KeyChar);
             bool default_ = false;
+            Console.Clear();
+            Console.WriteLine($"Нажата кнопка {pressKey.Key} {pressKey.KeyChar}");
 
             switch (point)
             {
-                case 1: Console.Clear(); Write(Commands.GetSystemTime()); break;
-                case 2: Console.Clear(); Write(Commands.GetSystemDate()); break; 
+                case 49: Write(Commands.GetSystemTime()); break;
+                case 50: Write(Commands.GetSystemDate()); break; 
+                case 51: Write("get time\r\n"); Thread.Sleep(1000); ReadLine(); break; 
+                case 52: Write("get date\r\n"); Thread.Sleep(1000); ReadLine(); break;
 
                 default: default_ = true; break;
             }
             if (!default_)
             {
-                Console.WriteLine($"Параметр [ {point} ] синхронизирован.\n\n");
-                Console.WriteLine(Message.pointsMenu);
                 Console.WriteLine(Message.exit);
-            }
-            else
-            {
-                Console.WriteLine(Message.pointsMenu);Console.WriteLine(Message.pointsMenu);
             }
         } while (pressKey.Key != ConsoleKey.Escape);
         Console.Clear();

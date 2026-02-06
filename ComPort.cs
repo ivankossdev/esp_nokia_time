@@ -45,22 +45,13 @@ public class ComPort
         _serialPort.WriteLine(message);
     }
 
-    /// <summary>
-    /// Читает данные порота 
-    /// </summary>
-    protected static void Read()
+    protected static void ReadLine()
     {
-        _serialPort.DataReceived += new SerialDataReceivedEventHandler(Port_DataReceived);
-        Console.WriteLine(_serialPort.ReadLine());
-    }
-
-    /// <summary>
-    /// Буфер данных для чтения порта
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private static void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)
-    {
-        _serialPort.DiscardInBuffer();
+        try
+        {
+            string message = _serialPort.ReadLine();
+            Console.WriteLine(message);
+        }
+        catch (TimeoutException) { }
     }
 }
