@@ -74,6 +74,6 @@ public class ComPort
     {
         SerialPort port = (SerialPort)sender;
         string data = port.ReadExisting();
-        Console.WriteLine($"Получено: {data}");
+        Console.WriteLine($"Получено: {data.Trim()}");
     }
 }

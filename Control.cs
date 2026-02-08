@@ -93,8 +93,8 @@ class Control : ComPort
             {
                 case 49: Write(Commands.GetSystemTime()); break;
                 case 50: Write(Commands.GetSystemDate()); break; 
-                case 51: Write("get time\r\n"); break; 
-                case 52: Write("get date\r\n"); break;
+                case 51: Write("pin on\r\n"); break; 
+                case 52: Write("pin off\r\n"); break;
 
                 default: default_ = true; break;
             }
