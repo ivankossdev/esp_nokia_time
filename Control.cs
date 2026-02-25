@@ -59,7 +59,7 @@ class Control : ComPort
             if (num <= ports.Length - 1)
             {
                 Console.WriteLine($"[ {num} ] {ports[num]}");
-                Init(ports[num], 9600);
+                Init(ports[num], 115200);
 
                 state = true;
                 break;
